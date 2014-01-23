@@ -3,7 +3,7 @@ var $ = function(q) {
 };
 
 /*--------------------------------------------------------------------
- * 行列
+ * 点
  */
 var P = (function() {
 
@@ -125,6 +125,20 @@ var perceptron = (function() {
 		w = V(0, 0, 0),
 		c = 1; //学習率
 
+	perceptron.show = function() {
+		console.group("W");
+		console.log(w.vals);
+		console.groupEnd();
+
+		for (var i = 0, max = samples.length; i < max; i++) {
+			console.group(i)
+			console.log(samples[i].pos.vals);
+			console.log(samples[i].label);
+			console.log(w.dot(samples[i].pos));
+			console.groupEnd();
+		}
+	};
+
 	function update() {
 		canvas
 			.clear()
@@ -154,7 +168,7 @@ var perceptron = (function() {
 				judge = result >= 0 ? 1 : -1;
 
 			if (judge != sample.label) {
-				if (sample.label == 1) {
+				if (sample.label > 0) {
 					w = w.add(sample.pos.multi(c));
 				} else {
 					w = w.min(sample.pos.multi(c));
@@ -162,23 +176,14 @@ var perceptron = (function() {
 			}
 		}
 
-		//正誤判定
-		for (var j = 0, max = samples.length; j < max; j++) {
-			var sample = samples[j],
-				result = w.dot(sample.pos),
-				judge = result >= 0 ? 1 : -1;
-			sample.flag = judge == sample.label
-		}
-
 		var w1 = w.vals[0],
 			w2 = w.vals[1],
 			w3 = w.vals[2];
 
 		var x0 = canvas.x0(),
-			y0 = -w2 / w3 * x0 - w1 / w2,
+			y0 = -1.0 * w2 / w3 * x0 - 1.0 * w1 / w3,
 			x1 = canvas.x1(),
-			y1 = -w2 / w3 * x1 - w1 / w2;
-
+			y1 = -1.0 * w2 / w3 * x1 - 1.0 * w1 / w3;
 
 		update();
 		canvas
@@ -357,7 +362,7 @@ var canvas = (function() {
 		y = this.translateY(y);
 		r = r || 5;
 
-		ctx.arc(x - r / 2, y - r / 2, r, 0, 2 * Math.PI, false);
+		ctx.arc(x, y, r, 0, 2 * Math.PI, false);
 		ctx.closePath();
 
 		return this
