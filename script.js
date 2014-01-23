@@ -79,8 +79,6 @@ function init() {
 	var statusX = $("#statusX")[0],
 		statusY = $("#statusY")[0],
 		btnChange = $("#btnChange")[0],
-		btnStart = $("#btnStart")[0],
-		btnStop = $("#btnStop")[0],
 		btnClear = $("#btnClear")[0],
 		canvasWrapper = $("#canvasWrapper")[0],
 		samples = [];
@@ -98,24 +96,11 @@ function init() {
 		btnChange.value = btnFlag ? "点：黒" : "点：青";
 	});
 
-	btnStart.addEventListener("click", function(ev) {
-		perceptron.start();
-	});
-
-	btnStop.addEventListener("click", function(ev) {
-		perceptron.stop();
-	});
-
 	btnClear.addEventListener("click", function(ev) {
 		perceptron.clearSample();
 	});
 
-	perceptron.addSample(-5, -1, 1);
-	perceptron.addSample(3, 2, 1);
-	perceptron.addSample(5, 5, 1);
-	perceptron.addSample(-5, -3, -1);
-	perceptron.addSample(-2, -2, -1);
-	perceptron.addSample(0, -4, -1);
+	perceptron.start();
 }
 
 var perceptron = (function() {
@@ -123,7 +108,7 @@ var perceptron = (function() {
 		samples = [],
 		timerID,
 		w = V(0, 0, 0),
-		c = 1; //学習率
+		c = 0.1; //学習率
 
 	perceptron.show = function() {
 		console.group("W");
@@ -159,7 +144,6 @@ var perceptron = (function() {
 	}
 
 	function train() {
-
 		//学習
 		for (var i = 0, max = samples.length; i < max; i++) {
 
@@ -194,7 +178,7 @@ var perceptron = (function() {
 
 		timerID = setTimeout(function() {
 			train();
-		}, 100);
+		}, 40);
 	}
 
 	perceptron.addSample = function(x, y, label) {
