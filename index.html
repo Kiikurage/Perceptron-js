@@ -1,0 +1,74 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>単純パーセプトロン</title>
+	<style>
+	html, body {
+		font-size: 14px;
+		padding: 0;
+		margin: 0;
+	}
+	body {
+		width: 600px;
+		margin: 10px auto;
+	}
+	header {
+		padding: 10px 0;
+		border-bottom: 1px solid #ccc;
+	}
+	footer {
+		padding: 10px 0;
+		border-top: 1px solid #ccc;
+	}
+	p {
+		margin: 3px 0;
+	}
+	#canvasWrapper {
+		margin: 20px auto;
+	}
+	#controller {
+		margin: 10px auto;
+		padding: 10px 30px;
+		border: 1px solid #aaa;
+		box-sizing: border-box;
+	}
+	#btnChange {
+		outline: none;
+		border: none;
+	}
+	.typeBlack {
+		background: #000;
+		color: #fff;
+	}
+	.typeBlue {
+		background: #00f;
+		color: #fff;
+	}
+	</style>
+</head>
+<body>
+	<header>
+		<h1>単純パーセプトロン</h1>
+		<p>①クリックで2種類の点をプロット</p>
+		<p>②スタートボタンを押すと、点を区別する線を探します</p>
+		<p>直線で区別できないような点の配置は勘弁してあげて下さい</p>
+		<small>動作確認済み： Chrome</small>
+	</header>
+	<div id="canvasWrapper" style="width: 600px; height: 400px; border: 1px solid #000;">
+		<canvas width="600" height="400" id="canvas"></canvas>
+	</div>
+	<div id="controller">
+		クリックで点の種類を変更→
+		<input type="button" id="btnChange" class="typeBlack" value="点：黒">
+		<input type="button" id="btnStart" value="スタート">
+		<input type="button" id="btnStop" value="ストップ">
+		<input type="button" id="btnClear" value="点のクリア">
+	</div>
+	<footer>
+		<small>
+			Copyright 2014- <a href="mailTo:y.kikura@gmail.com">Y.Kikura</a> All Rights reserved.
+		</small>
+	</footer>
+	<script src="./script.js"></script>
+</body>
+</html>
